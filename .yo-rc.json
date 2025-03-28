@@ -1,0 +1,33 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "appylb",
+    "buildTool": "maven",
+    "cacheProvider": "no",
+    "clientFramework": "angular",
+    "clientTestFrameworks": [],
+    "clientTheme": "none",
+    "creationTimestamp": 1743203786219,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "enableHibernateCache": null,
+    "enableTranslation": true,
+    "entities": [],
+    "feignClient": null,
+    "jhipsterVersion": "8.9.0",
+    "jwtSecretKey": "MDBhYWFmMzI5MjllYTg3NDM3ZTA0NzdiNjZkMjRkZmJkODBhNzYwOGZmZDAzY2UzNDliZDBhODkxMzY5OTJjNjQ3MzQ4YmUzMGY0ZTA0ZGQ3Njk1MDhjMGJkMmI5ZGI4ZmJmYmU5MTM1M2EyZDJhMzliNjlmN2YzN2YzZWMwZjg=",
+    "languages": ["es"],
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "es",
+    "packageName": "bo.ylb.app",
+    "prodDatabaseType": "mysql",
+    "reactive": false,
+    "serverPort": null,
+    "serviceDiscoveryType": null,
+    "syncUserWithIdp": null,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}
