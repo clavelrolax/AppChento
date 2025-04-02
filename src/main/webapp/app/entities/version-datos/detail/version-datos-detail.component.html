@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (versionDatos(); as versionDatosRef) {
+      <div>
+        <h2 data-cy="versionDatosDetailsHeading"><span jhiTranslate="appylbApp.versionDatos.detail.title">Version Datos</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ versionDatosRef.id }}</span>
+          </dd>
+          <dt>
+            <span [ngbTooltip]="'appylbApp.versionDatos.help.nombreVersion' | translate" jhiTranslate="appylbApp.versionDatos.nombreVersion"
+              >Nombre Version</span
+            >
+          </dt>
+          <dd>
+            <span>{{ versionDatosRef.nombreVersion }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.versionDatos.fechaVersion">Fecha Version</span></dt>
+          <dd>
+            <span>{{ versionDatosRef.fechaVersion | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.versionDatos.citeVersion">Cite Version</span></dt>
+          <dd>
+            <span>{{ versionDatosRef.citeVersion }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.versionDatos.proyecto">Proyecto</span></dt>
+          <dd>
+            @if (versionDatos()!.proyecto) {
+              <div>
+                <a [routerLink]="['/proyecto', versionDatos()!.proyecto?.id, 'view']">{{ versionDatosRef.proyecto?.nombreProyecto }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/version-datos', versionDatosRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

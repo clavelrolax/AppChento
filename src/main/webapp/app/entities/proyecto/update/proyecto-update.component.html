@@ -1,0 +1,154 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-proyecto-heading" data-cy="ProyectoCreateUpdateHeading" jhiTranslate="appylbApp.proyecto.home.createOrEditLabel">
+        Crear o editar Proyecto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="appylbApp.proyecto.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nombreProyectoRef = editForm.get('nombreProyecto')!;
+        <div class="mb-3">
+          <label
+            class="form-label"
+            for="field_nombreProyecto"
+            [ngbTooltip]="'appylbApp.proyecto.help.nombreProyecto' | translate"
+            jhiTranslate="appylbApp.proyecto.nombreProyecto"
+            >Nombre Proyecto</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreProyecto"
+            id="field_nombreProyecto"
+            data-cy="nombreProyecto"
+            formControlName="nombreProyecto"
+          />
+          @if (nombreProyectoRef.invalid && (nombreProyectoRef.dirty || nombreProyectoRef.touched)) {
+            <div>
+              @if (editForm.get('nombreProyecto')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let objetivoRef = editForm.get('objetivo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_objetivo" jhiTranslate="appylbApp.proyecto.objetivo">Objetivo</label>
+          <input type="text" class="form-control" name="objetivo" id="field_objetivo" data-cy="objetivo" formControlName="objetivo" />
+          @if (objetivoRef.invalid && (objetivoRef.dirty || objetivoRef.touched)) {
+            <div>
+              @if (editForm.get('objetivo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let tiempoProyectoRef = editForm.get('tiempoProyecto')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_tiempoProyecto" jhiTranslate="appylbApp.proyecto.tiempoProyecto">Tiempo Proyecto</label>
+          <input
+            type="number"
+            class="form-control"
+            name="tiempoProyecto"
+            id="field_tiempoProyecto"
+            data-cy="tiempoProyecto"
+            formControlName="tiempoProyecto"
+          />
+          @if (tiempoProyectoRef.invalid && (tiempoProyectoRef.dirty || tiempoProyectoRef.touched)) {
+            <div>
+              @if (editForm.get('tiempoProyecto')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('tiempoProyecto')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaInicio" jhiTranslate="appylbApp.proyecto.fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaFin" jhiTranslate="appylbApp.proyecto.fechaFin">Fecha Fin</label>
+          <div class="input-group">
+            <input
+              id="field_fechaFin"
+              data-cy="fechaFin"
+              type="text"
+              class="form-control"
+              name="fechaFin"
+              ngbDatepicker
+              #fechaFinDp="ngbDatepicker"
+              formControlName="fechaFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_operador" jhiTranslate="appylbApp.proyecto.operador">Operador</label>
+          <select
+            class="form-control"
+            id="field_operador"
+            data-cy="operador"
+            name="operador"
+            formControlName="operador"
+            [compareWith]="compareOperador"
+          >
+            <option [ngValue]="null"></option>
+            @for (operadorOption of operadorsSharedCollection; track $index) {
+              <option [ngValue]="operadorOption">{{ operadorOption.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

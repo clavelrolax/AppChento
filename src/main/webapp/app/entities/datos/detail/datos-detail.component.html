@@ -1,0 +1,130 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (datos(); as datosRef) {
+      <div>
+        <h2 data-cy="datosDetailsHeading"><span jhiTranslate="appylbApp.datos.detail.title">Datos</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ datosRef.id }}</span>
+          </dd>
+          <dt>
+            <span [ngbTooltip]="'appylbApp.datos.help.inversionTotal' | translate" jhiTranslate="appylbApp.datos.inversionTotal"
+              >Inversion Total</span
+            >
+          </dt>
+          <dd>
+            <span>{{ datosRef.inversionTotal }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.ingresosxVentas">Ingresosx Ventas</span></dt>
+          <dd>
+            <span>{{ datosRef.ingresosxVentas }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.gananciasYLB">Ganancias YLB</span></dt>
+          <dd>
+            <span>{{ datosRef.gananciasYLB }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.goubernamentTak">Goubernament Tak</span></dt>
+          <dd>
+            <span>{{ datosRef.goubernamentTak }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.regalias">Regalias</span></dt>
+          <dd>
+            <span>{{ datosRef.regalias }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.iue">Iue</span></dt>
+          <dd>
+            <span>{{ datosRef.iue }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.iva">Iva</span></dt>
+          <dd>
+            <span>{{ datosRef.iva }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.it">It</span></dt>
+          <dd>
+            <span>{{ datosRef.it }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1precioVentaprom">T 1 Precio Ventaprom</span></dt>
+          <dd>
+            <span>{{ datosRef.t1precioVentaprom }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1costoVariable">T 1 Costo Variable</span></dt>
+          <dd>
+            <span>{{ datosRef.t1costoVariable }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1costoVartarifa">T 1 Costo Vartarifa</span></dt>
+          <dd>
+            <span>{{ datosRef.t1costoVartarifa }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1margenUnitario">T 1 Margen Unitario</span></dt>
+          <dd>
+            <span>{{ datosRef.t1margenUnitario }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1costoFijo">T 1 Costo Fijo</span></dt>
+          <dd>
+            <span>{{ datosRef.t1costoFijo }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1costoTotalunitprom">T 1 Costo Totalunitprom</span></dt>
+          <dd>
+            <span>{{ datosRef.t1costoTotalunitprom }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t1puntoEquilibrio">T 1 Punto Equilibrio</span></dt>
+          <dd>
+            <span>{{ datosRef.t1puntoEquilibrio }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2tasainteres">T 2 Tasainteres</span></dt>
+          <dd>
+            <span>{{ datosRef.t2tasainteres }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2tasadescuento">T 2 Tasadescuento</span></dt>
+          <dd>
+            <span>{{ datosRef.t2tasadescuento }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2vandelProyecto">T 2 Vandel Proyecto</span></dt>
+          <dd>
+            <span>{{ datosRef.t2vandelProyecto }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2vanYlb">T 2 Van Ylb</span></dt>
+          <dd>
+            <span>{{ datosRef.t2vanYlb }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2vp">T 2 Vp</span></dt>
+          <dd>
+            <span>{{ datosRef.t2vp }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2tirProyecto">T 2 Tir Proyecto</span></dt>
+          <dd>
+            <span>{{ datosRef.t2tirProyecto }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.t2tirYlb">T 2 Tir Ylb</span></dt>
+          <dd>
+            <span>{{ datosRef.t2tirYlb }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datos.versionDatos">Version Datos</span></dt>
+          <dd>
+            @if (datos()!.versionDatos) {
+              <div>
+                <a [routerLink]="['/version-datos', datos()!.versionDatos?.id, 'view']">{{ datosRef.versionDatos?.nombreVersion }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/datos', datosRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

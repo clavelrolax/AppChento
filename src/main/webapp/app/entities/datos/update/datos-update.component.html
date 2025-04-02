@@ -1,0 +1,280 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-datos-heading" data-cy="DatosCreateUpdateHeading" jhiTranslate="appylbApp.datos.home.createOrEditLabel">
+        Crear o editar Datos
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="appylbApp.datos.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label
+            class="form-label"
+            for="field_inversionTotal"
+            [ngbTooltip]="'appylbApp.datos.help.inversionTotal' | translate"
+            jhiTranslate="appylbApp.datos.inversionTotal"
+            >Inversion Total</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="inversionTotal"
+            id="field_inversionTotal"
+            data-cy="inversionTotal"
+            formControlName="inversionTotal"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ingresosxVentas" jhiTranslate="appylbApp.datos.ingresosxVentas">Ingresosx Ventas</label>
+          <input
+            type="text"
+            class="form-control"
+            name="ingresosxVentas"
+            id="field_ingresosxVentas"
+            data-cy="ingresosxVentas"
+            formControlName="ingresosxVentas"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_gananciasYLB" jhiTranslate="appylbApp.datos.gananciasYLB">Ganancias YLB</label>
+          <input
+            type="text"
+            class="form-control"
+            name="gananciasYLB"
+            id="field_gananciasYLB"
+            data-cy="gananciasYLB"
+            formControlName="gananciasYLB"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_goubernamentTak" jhiTranslate="appylbApp.datos.goubernamentTak">Goubernament Tak</label>
+          <input
+            type="text"
+            class="form-control"
+            name="goubernamentTak"
+            id="field_goubernamentTak"
+            data-cy="goubernamentTak"
+            formControlName="goubernamentTak"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_regalias" jhiTranslate="appylbApp.datos.regalias">Regalias</label>
+          <input type="text" class="form-control" name="regalias" id="field_regalias" data-cy="regalias" formControlName="regalias" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_iue" jhiTranslate="appylbApp.datos.iue">Iue</label>
+          <input type="text" class="form-control" name="iue" id="field_iue" data-cy="iue" formControlName="iue" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_iva" jhiTranslate="appylbApp.datos.iva">Iva</label>
+          <input type="text" class="form-control" name="iva" id="field_iva" data-cy="iva" formControlName="iva" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_it" jhiTranslate="appylbApp.datos.it">It</label>
+          <input type="text" class="form-control" name="it" id="field_it" data-cy="it" formControlName="it" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1precioVentaprom" jhiTranslate="appylbApp.datos.t1precioVentaprom"
+            >T 1 Precio Ventaprom</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="t1precioVentaprom"
+            id="field_t1precioVentaprom"
+            data-cy="t1precioVentaprom"
+            formControlName="t1precioVentaprom"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1costoVariable" jhiTranslate="appylbApp.datos.t1costoVariable">T 1 Costo Variable</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t1costoVariable"
+            id="field_t1costoVariable"
+            data-cy="t1costoVariable"
+            formControlName="t1costoVariable"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1costoVartarifa" jhiTranslate="appylbApp.datos.t1costoVartarifa">T 1 Costo Vartarifa</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t1costoVartarifa"
+            id="field_t1costoVartarifa"
+            data-cy="t1costoVartarifa"
+            formControlName="t1costoVartarifa"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1margenUnitario" jhiTranslate="appylbApp.datos.t1margenUnitario">T 1 Margen Unitario</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t1margenUnitario"
+            id="field_t1margenUnitario"
+            data-cy="t1margenUnitario"
+            formControlName="t1margenUnitario"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1costoFijo" jhiTranslate="appylbApp.datos.t1costoFijo">T 1 Costo Fijo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t1costoFijo"
+            id="field_t1costoFijo"
+            data-cy="t1costoFijo"
+            formControlName="t1costoFijo"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1costoTotalunitprom" jhiTranslate="appylbApp.datos.t1costoTotalunitprom"
+            >T 1 Costo Totalunitprom</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="t1costoTotalunitprom"
+            id="field_t1costoTotalunitprom"
+            data-cy="t1costoTotalunitprom"
+            formControlName="t1costoTotalunitprom"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t1puntoEquilibrio" jhiTranslate="appylbApp.datos.t1puntoEquilibrio"
+            >T 1 Punto Equilibrio</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="t1puntoEquilibrio"
+            id="field_t1puntoEquilibrio"
+            data-cy="t1puntoEquilibrio"
+            formControlName="t1puntoEquilibrio"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2tasainteres" jhiTranslate="appylbApp.datos.t2tasainteres">T 2 Tasainteres</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t2tasainteres"
+            id="field_t2tasainteres"
+            data-cy="t2tasainteres"
+            formControlName="t2tasainteres"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2tasadescuento" jhiTranslate="appylbApp.datos.t2tasadescuento">T 2 Tasadescuento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t2tasadescuento"
+            id="field_t2tasadescuento"
+            data-cy="t2tasadescuento"
+            formControlName="t2tasadescuento"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2vandelProyecto" jhiTranslate="appylbApp.datos.t2vandelProyecto">T 2 Vandel Proyecto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t2vandelProyecto"
+            id="field_t2vandelProyecto"
+            data-cy="t2vandelProyecto"
+            formControlName="t2vandelProyecto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2vanYlb" jhiTranslate="appylbApp.datos.t2vanYlb">T 2 Van Ylb</label>
+          <input type="text" class="form-control" name="t2vanYlb" id="field_t2vanYlb" data-cy="t2vanYlb" formControlName="t2vanYlb" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2vp" jhiTranslate="appylbApp.datos.t2vp">T 2 Vp</label>
+          <input type="text" class="form-control" name="t2vp" id="field_t2vp" data-cy="t2vp" formControlName="t2vp" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2tirProyecto" jhiTranslate="appylbApp.datos.t2tirProyecto">T 2 Tir Proyecto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="t2tirProyecto"
+            id="field_t2tirProyecto"
+            data-cy="t2tirProyecto"
+            formControlName="t2tirProyecto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_t2tirYlb" jhiTranslate="appylbApp.datos.t2tirYlb">T 2 Tir Ylb</label>
+          <input type="text" class="form-control" name="t2tirYlb" id="field_t2tirYlb" data-cy="t2tirYlb" formControlName="t2tirYlb" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_versionDatos" jhiTranslate="appylbApp.datos.versionDatos">Version Datos</label>
+          <select
+            class="form-control"
+            id="field_versionDatos"
+            data-cy="versionDatos"
+            name="versionDatos"
+            formControlName="versionDatos"
+            [compareWith]="compareVersionDatos"
+          >
+            <option [ngValue]="null"></option>
+            @for (versionDatosOption of versionDatosCollection; track $index) {
+              <option [ngValue]="versionDatosOption">{{ versionDatosOption.nombreVersion }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+{
+  "annotations": {
+    "changelogDate": "20250329005628"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "documentation": "fieldName",
+      "fieldName": "imagen1",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen2",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen3",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen4",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen5",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen6",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen7",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen8",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen9",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen10",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen11",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "imagen12",
+      "fieldType": "ImageBlob"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "DatosImagen",
+  "relationships": [
+    {
+      "otherEntityField": "nombreVersion",
+      "otherEntityName": "versionDatos",
+      "otherEntityRelationshipName": "datosImagen",
+      "relationshipName": "versionDatos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

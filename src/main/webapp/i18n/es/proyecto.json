@@ -1,0 +1,33 @@
+{
+  "appylbApp": {
+    "proyecto": {
+      "home": {
+        "title": "Proyectos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Proyecto",
+        "createOrEditLabel": "Crear o editar Proyecto",
+        "notFound": "Ningún Proyectos encontrado"
+      },
+      "created": "Un nuevo Proyecto ha sido creado con el identificador {{ param }}",
+      "updated": "Un Proyecto ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Proyecto ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Proyecto {{ id }}?"
+      },
+      "detail": {
+        "title": "Proyecto"
+      },
+      "id": "ID",
+      "nombreProyecto": "Nombre Proyecto",
+      "objetivo": "Objetivo",
+      "tiempoProyecto": "Tiempo Proyecto",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "operador": "Operador",
+      "versionDatos": "Version Datos",
+      "help": {
+        "nombreProyecto": "fieldName"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20250329005631"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "documentation": "fieldName",
+      "fieldName": "nombreVersion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaVersion",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "citeVersion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "VersionDatos",
+  "relationships": [
+    {
+      "otherEntityField": "nombreProyecto",
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "versionDatos",
+      "relationshipName": "proyecto",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "datos",
+      "otherEntityRelationshipName": "versionDatos",
+      "relationshipName": "datos",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "datosImagen",
+      "otherEntityRelationshipName": "versionDatos",
+      "relationshipName": "datosImagen",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

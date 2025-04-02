@@ -1,0 +1,112 @@
+{
+  "annotations": {
+    "changelogDate": "20250329005627"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "documentation": "fieldName",
+      "fieldName": "inversionTotal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ingresosxVentas",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gananciasYLB",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "goubernamentTak",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regalias",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "iue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "iva",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "it",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1precioVentaprom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1costoVariable",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1costoVartarifa",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1margenUnitario",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1costoFijo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1costoTotalunitprom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t1puntoEquilibrio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2tasainteres",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2tasadescuento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2vandelProyecto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2vanYlb",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2vp",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2tirProyecto",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "t2tirYlb",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Datos",
+  "relationships": [
+    {
+      "otherEntityField": "nombreVersion",
+      "otherEntityName": "versionDatos",
+      "otherEntityRelationshipName": "datos",
+      "relationshipName": "versionDatos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

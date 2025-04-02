@@ -1,0 +1,32 @@
+{
+  "appylbApp": {
+    "versionDatos": {
+      "home": {
+        "title": "Version Datos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Version Datos",
+        "createOrEditLabel": "Crear o editar Version Datos",
+        "notFound": "Ningún Version Datos encontrado"
+      },
+      "created": "Un nuevo Version Datos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Version Datos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Version Datos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Version Datos {{ id }}?"
+      },
+      "detail": {
+        "title": "Version Datos"
+      },
+      "id": "ID",
+      "nombreVersion": "Nombre Version",
+      "fechaVersion": "Fecha Version",
+      "citeVersion": "Cite Version",
+      "proyecto": "Proyecto",
+      "datos": "Datos",
+      "datosImagen": "Datos Imagen",
+      "help": {
+        "nombreVersion": "fieldName"
+      }
+    }
+  }
+}

@@ -1,0 +1,224 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (datosImagen(); as datosImagenRef) {
+      <div>
+        <h2 data-cy="datosImagenDetailsHeading"><span jhiTranslate="appylbApp.datosImagen.detail.title">Datos Imagen</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ datosImagenRef.id }}</span>
+          </dd>
+          <dt>
+            <span [ngbTooltip]="'appylbApp.datosImagen.help.imagen1' | translate" jhiTranslate="appylbApp.datosImagen.imagen1"
+              >Imagen 1</span
+            >
+          </dt>
+          <dd>
+            @if (datosImagenRef.imagen1) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen1 ?? '', datosImagenRef.imagen1ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen1ContentType + ';base64,' + datosImagenRef.imagen1"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen1ContentType }}, {{ byteSize(datosImagenRef.imagen1 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen2">Imagen 2</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen2) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen2 ?? '', datosImagenRef.imagen2ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen2ContentType + ';base64,' + datosImagenRef.imagen2"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen2ContentType }}, {{ byteSize(datosImagenRef.imagen2 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen3">Imagen 3</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen3) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen3 ?? '', datosImagenRef.imagen3ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen3ContentType + ';base64,' + datosImagenRef.imagen3"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen3ContentType }}, {{ byteSize(datosImagenRef.imagen3 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen4">Imagen 4</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen4) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen4 ?? '', datosImagenRef.imagen4ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen4ContentType + ';base64,' + datosImagenRef.imagen4"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen4ContentType }}, {{ byteSize(datosImagenRef.imagen4 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen5">Imagen 5</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen5) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen5 ?? '', datosImagenRef.imagen5ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen5ContentType + ';base64,' + datosImagenRef.imagen5"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen5ContentType }}, {{ byteSize(datosImagenRef.imagen5 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen6">Imagen 6</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen6) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen6 ?? '', datosImagenRef.imagen6ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen6ContentType + ';base64,' + datosImagenRef.imagen6"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen6ContentType }}, {{ byteSize(datosImagenRef.imagen6 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen7">Imagen 7</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen7) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen7 ?? '', datosImagenRef.imagen7ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen7ContentType + ';base64,' + datosImagenRef.imagen7"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen7ContentType }}, {{ byteSize(datosImagenRef.imagen7 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen8">Imagen 8</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen8) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen8 ?? '', datosImagenRef.imagen8ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen8ContentType + ';base64,' + datosImagenRef.imagen8"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen8ContentType }}, {{ byteSize(datosImagenRef.imagen8 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen9">Imagen 9</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen9) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen9 ?? '', datosImagenRef.imagen9ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen9ContentType + ';base64,' + datosImagenRef.imagen9"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen9ContentType }}, {{ byteSize(datosImagenRef.imagen9 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen10">Imagen 10</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen10) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen10 ?? '', datosImagenRef.imagen10ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen10ContentType + ';base64,' + datosImagenRef.imagen10"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen10ContentType }}, {{ byteSize(datosImagenRef.imagen10 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen11">Imagen 11</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen11) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen11 ?? '', datosImagenRef.imagen11ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen11ContentType + ';base64,' + datosImagenRef.imagen11"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen11ContentType }}, {{ byteSize(datosImagenRef.imagen11 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.imagen12">Imagen 12</span></dt>
+          <dd>
+            @if (datosImagenRef.imagen12) {
+              <div>
+                <a (click)="openFile(datosImagenRef.imagen12 ?? '', datosImagenRef.imagen12ContentType)">
+                  <img
+                    [src]="'data:' + datosImagenRef.imagen12ContentType + ';base64,' + datosImagenRef.imagen12"
+                    style="max-width: 100%"
+                    alt="datosImagen"
+                  />
+                </a>
+                {{ datosImagenRef.imagen12ContentType }}, {{ byteSize(datosImagenRef.imagen12 ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="appylbApp.datosImagen.versionDatos">Version Datos</span></dt>
+          <dd>
+            @if (datosImagen()!.versionDatos) {
+              <div>
+                <a [routerLink]="['/version-datos', datosImagen()!.versionDatos?.id, 'view']">{{
+                  datosImagenRef.versionDatos?.nombreVersion
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/datos-imagen', datosImagenRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,319 @@
+<div>
+  <h2 id="page-heading" data-cy="DatosImagenHeading">
+    <span jhiTranslate="appylbApp.datosImagen.home.title">Datos Imagens</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="appylbApp.datosImagen.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-datos-imagen"
+        [routerLink]="['/datos-imagen/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="appylbApp.datosImagen.home.createLabel">Crear nuevo Datos Imagen</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (datosImagens().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="appylbApp.datosImagen.home.notFound">Ningún Datos Imagens encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen1">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen1">Imagen 1</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen2">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen2">Imagen 2</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen3">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen3">Imagen 3</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen4">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen4">Imagen 4</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen5">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen5">Imagen 5</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen6">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen6">Imagen 6</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen7">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen7">Imagen 7</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen8">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen8">Imagen 8</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen9">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen9">Imagen 9</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen10">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen10">Imagen 10</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen11">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen11">Imagen 11</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagen12">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.imagen12">Imagen 12</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="versionDatos.nombreVersion">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datosImagen.versionDatos">Version Datos</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (datosImagen of datosImagens(); track trackId(datosImagen)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/datos-imagen', datosImagen.id, 'view']">{{ datosImagen.id }}</a>
+              </td>
+              <td>
+                @if (datosImagen.imagen1) {
+                  <a (click)="openFile(datosImagen.imagen1, datosImagen.imagen1ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen1ContentType + ';base64,' + datosImagen.imagen1"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen1ContentType }}, {{ byteSize(datosImagen.imagen1) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen2) {
+                  <a (click)="openFile(datosImagen.imagen2, datosImagen.imagen2ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen2ContentType + ';base64,' + datosImagen.imagen2"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen2ContentType }}, {{ byteSize(datosImagen.imagen2) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen3) {
+                  <a (click)="openFile(datosImagen.imagen3, datosImagen.imagen3ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen3ContentType + ';base64,' + datosImagen.imagen3"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen3ContentType }}, {{ byteSize(datosImagen.imagen3) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen4) {
+                  <a (click)="openFile(datosImagen.imagen4, datosImagen.imagen4ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen4ContentType + ';base64,' + datosImagen.imagen4"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen4ContentType }}, {{ byteSize(datosImagen.imagen4) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen5) {
+                  <a (click)="openFile(datosImagen.imagen5, datosImagen.imagen5ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen5ContentType + ';base64,' + datosImagen.imagen5"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen5ContentType }}, {{ byteSize(datosImagen.imagen5) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen6) {
+                  <a (click)="openFile(datosImagen.imagen6, datosImagen.imagen6ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen6ContentType + ';base64,' + datosImagen.imagen6"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen6ContentType }}, {{ byteSize(datosImagen.imagen6) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen7) {
+                  <a (click)="openFile(datosImagen.imagen7, datosImagen.imagen7ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen7ContentType + ';base64,' + datosImagen.imagen7"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen7ContentType }}, {{ byteSize(datosImagen.imagen7) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen8) {
+                  <a (click)="openFile(datosImagen.imagen8, datosImagen.imagen8ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen8ContentType + ';base64,' + datosImagen.imagen8"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen8ContentType }}, {{ byteSize(datosImagen.imagen8) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen9) {
+                  <a (click)="openFile(datosImagen.imagen9, datosImagen.imagen9ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen9ContentType + ';base64,' + datosImagen.imagen9"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen9ContentType }}, {{ byteSize(datosImagen.imagen9) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen10) {
+                  <a (click)="openFile(datosImagen.imagen10, datosImagen.imagen10ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen10ContentType + ';base64,' + datosImagen.imagen10"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen10ContentType }}, {{ byteSize(datosImagen.imagen10) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen11) {
+                  <a (click)="openFile(datosImagen.imagen11, datosImagen.imagen11ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen11ContentType + ';base64,' + datosImagen.imagen11"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen11ContentType }}, {{ byteSize(datosImagen.imagen11) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.imagen12) {
+                  <a (click)="openFile(datosImagen.imagen12, datosImagen.imagen12ContentType)">
+                    <img
+                      [src]="'data:' + datosImagen.imagen12ContentType + ';base64,' + datosImagen.imagen12"
+                      style="max-height: 30px"
+                      alt="datosImagen"
+                    />
+                  </a>
+                  <span>{{ datosImagen.imagen12ContentType }}, {{ byteSize(datosImagen.imagen12) }}</span>
+                }
+              </td>
+              <td>
+                @if (datosImagen.versionDatos) {
+                  <div>
+                    <a [routerLink]="['/version-datos', datosImagen.versionDatos.id, 'view']">{{
+                      datosImagen.versionDatos.nombreVersion
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/datos-imagen', datosImagen.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/datos-imagen', datosImagen.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(datosImagen)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

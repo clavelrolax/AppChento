@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (proyecto(); as proyectoRef) {
+      <div>
+        <h2 data-cy="proyectoDetailsHeading"><span jhiTranslate="appylbApp.proyecto.detail.title">Proyecto</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ proyectoRef.id }}</span>
+          </dd>
+          <dt>
+            <span [ngbTooltip]="'appylbApp.proyecto.help.nombreProyecto' | translate" jhiTranslate="appylbApp.proyecto.nombreProyecto"
+              >Nombre Proyecto</span
+            >
+          </dt>
+          <dd>
+            <span>{{ proyectoRef.nombreProyecto }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.proyecto.objetivo">Objetivo</span></dt>
+          <dd>
+            <span>{{ proyectoRef.objetivo }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.proyecto.tiempoProyecto">Tiempo Proyecto</span></dt>
+          <dd>
+            <span>{{ proyectoRef.tiempoProyecto }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.proyecto.fechaInicio">Fecha Inicio</span></dt>
+          <dd>
+            <span>{{ proyectoRef.fechaInicio | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.proyecto.fechaFin">Fecha Fin</span></dt>
+          <dd>
+            <span>{{ proyectoRef.fechaFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.proyecto.operador">Operador</span></dt>
+          <dd>
+            @if (proyecto()!.operador) {
+              <div>
+                <a [routerLink]="['/operador', proyecto()!.operador?.id, 'view']">{{ proyectoRef.operador?.nombre }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/proyecto', proyectoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

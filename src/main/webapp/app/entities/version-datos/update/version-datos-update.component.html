@@ -1,0 +1,130 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-version-datos-heading"
+        data-cy="VersionDatosCreateUpdateHeading"
+        jhiTranslate="appylbApp.versionDatos.home.createOrEditLabel"
+      >
+        Crear o editar Version Datos
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="appylbApp.versionDatos.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nombreVersionRef = editForm.get('nombreVersion')!;
+        <div class="mb-3">
+          <label
+            class="form-label"
+            for="field_nombreVersion"
+            [ngbTooltip]="'appylbApp.versionDatos.help.nombreVersion' | translate"
+            jhiTranslate="appylbApp.versionDatos.nombreVersion"
+            >Nombre Version</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreVersion"
+            id="field_nombreVersion"
+            data-cy="nombreVersion"
+            formControlName="nombreVersion"
+          />
+          @if (nombreVersionRef.invalid && (nombreVersionRef.dirty || nombreVersionRef.touched)) {
+            <div>
+              @if (editForm.get('nombreVersion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fechaVersionRef = editForm.get('fechaVersion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaVersion" jhiTranslate="appylbApp.versionDatos.fechaVersion">Fecha Version</label>
+          <div class="input-group">
+            <input
+              id="field_fechaVersion"
+              data-cy="fechaVersion"
+              type="text"
+              class="form-control"
+              name="fechaVersion"
+              ngbDatepicker
+              #fechaVersionDp="ngbDatepicker"
+              formControlName="fechaVersion"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaVersionDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (fechaVersionRef.invalid && (fechaVersionRef.dirty || fechaVersionRef.touched)) {
+            <div>
+              @if (editForm.get('fechaVersion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let citeVersionRef = editForm.get('citeVersion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_citeVersion" jhiTranslate="appylbApp.versionDatos.citeVersion">Cite Version</label>
+          <input
+            type="text"
+            class="form-control"
+            name="citeVersion"
+            id="field_citeVersion"
+            data-cy="citeVersion"
+            formControlName="citeVersion"
+          />
+          @if (citeVersionRef.invalid && (citeVersionRef.dirty || citeVersionRef.touched)) {
+            <div>
+              @if (editForm.get('citeVersion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_proyecto" jhiTranslate="appylbApp.versionDatos.proyecto">Proyecto</label>
+          <select
+            class="form-control"
+            id="field_proyecto"
+            data-cy="proyecto"
+            name="proyecto"
+            formControlName="proyecto"
+            [compareWith]="compareProyecto"
+          >
+            <option [ngValue]="null"></option>
+            @for (proyectoOption of proyectosSharedCollection; track $index) {
+              <option [ngValue]="proyectoOption">{{ proyectoOption.nombreProyecto }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

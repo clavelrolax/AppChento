@@ -1,0 +1,97 @@
+/**
+ * The Entity entity.
+ * @author A true hipster
+ */
+entity Operador {
+    /** fieldName */
+    nombre String required 
+    nacionalidad String required
+    fechaCreacion LocalDate required
+    
+}
+
+entity Proyecto {
+    /** fieldName */
+    nombreProyecto String required 
+    objetivo String required
+    tiempoProyecto Integer required
+    fechaInicio LocalDate 
+    fechaFin LocalDate 
+    
+}
+
+entity VersionDatos {
+    /** fieldName */
+    nombreVersion String required 
+    fechaVersion LocalDate required
+    citeVersion String required
+    
+}
+
+entity Datos {
+    /** fieldName */
+    inversionTotal String  
+    ingresosxVentas String 
+    gananciasYLB String
+    goubernamentTak String
+    regalias String
+    iue String
+    iva String
+    it String
+    t1precioVentaprom String
+    t1costoVariable String
+    t1costoVartarifa String
+    t1margenUnitario String
+    t1costoFijo String
+    t1costoTotalunitprom String
+    t1puntoEquilibrio String
+    t2tasainteres String
+    t2tasadescuento String
+    t2vandelProyecto String
+    t2vanYlb String
+    t2vp String
+    t2tirProyecto String
+    t2tirYlb String    
+}
+
+entity DatosImagen {
+    /** fieldName */
+    imagen1 ImageBlob
+    imagen2 ImageBlob
+    imagen3 ImageBlob
+    imagen4 ImageBlob
+    imagen5 ImageBlob
+    imagen6 ImageBlob
+    imagen7 ImageBlob
+    imagen8 ImageBlob
+    imagen9 ImageBlob
+    imagen10 ImageBlob
+    imagen11 ImageBlob
+    imagen12 ImageBlob
+
+}
+
+
+
+
+relationship ManyToOne {
+    Proyecto{operador(nombre)} to Operador{proyecto}
+    VersionDatos{proyecto(nombreProyecto)} to Proyecto{versionDatos}  
+}
+
+
+
+
+/**
+ * One to one relationship.
+ */
+relationship OneToOne {
+    Datos{versionDatos(nombreVersion)} to VersionDatos{datos}
+    DatosImagen{versionDatos(nombreVersion)} to VersionDatos{datosImagen}
+}
+
+
+
+dto * with mapstruct
+service * with serviceClass
+filter *

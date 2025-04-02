@@ -1,0 +1,49 @@
+{
+  "appylbApp": {
+    "datos": {
+      "home": {
+        "title": "Datos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Datos",
+        "createOrEditLabel": "Crear o editar Datos",
+        "notFound": "Ningún Datos encontrado"
+      },
+      "created": "Un nuevo Datos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Datos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Datos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Datos {{ id }}?"
+      },
+      "detail": {
+        "title": "Datos"
+      },
+      "id": "ID",
+      "inversionTotal": "Inversion Total",
+      "ingresosxVentas": "Ingresosx Ventas",
+      "gananciasYLB": "Ganancias YLB",
+      "goubernamentTak": "Goubernament Tak",
+      "regalias": "Regalias",
+      "iue": "Iue",
+      "iva": "Iva",
+      "it": "It",
+      "t1precioVentaprom": "T 1 Precio Ventaprom",
+      "t1costoVariable": "T 1 Costo Variable",
+      "t1costoVartarifa": "T 1 Costo Vartarifa",
+      "t1margenUnitario": "T 1 Margen Unitario",
+      "t1costoFijo": "T 1 Costo Fijo",
+      "t1costoTotalunitprom": "T 1 Costo Totalunitprom",
+      "t1puntoEquilibrio": "T 1 Punto Equilibrio",
+      "t2tasainteres": "T 2 Tasainteres",
+      "t2tasadescuento": "T 2 Tasadescuento",
+      "t2vandelProyecto": "T 2 Vandel Proyecto",
+      "t2vanYlb": "T 2 Van Ylb",
+      "t2vp": "T 2 Vp",
+      "t2tirProyecto": "T 2 Tir Proyecto",
+      "t2tirYlb": "T 2 Tir Ylb",
+      "versionDatos": "Version Datos",
+      "help": {
+        "inversionTotal": "fieldName"
+      }
+    }
+  }
+}

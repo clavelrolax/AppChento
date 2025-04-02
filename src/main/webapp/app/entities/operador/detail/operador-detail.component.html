@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (operador(); as operadorRef) {
+      <div>
+        <h2 data-cy="operadorDetailsHeading"><span jhiTranslate="appylbApp.operador.detail.title">Operador</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ operadorRef.id }}</span>
+          </dd>
+          <dt><span [ngbTooltip]="'appylbApp.operador.help.nombre' | translate" jhiTranslate="appylbApp.operador.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ operadorRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.operador.nacionalidad">Nacionalidad</span></dt>
+          <dd>
+            <span>{{ operadorRef.nacionalidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="appylbApp.operador.fechaCreacion">Fecha Creacion</span></dt>
+          <dd>
+            <span>{{ operadorRef.fechaCreacion | formatMediumDate }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/operador', operadorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

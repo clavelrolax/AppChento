@@ -1,0 +1,265 @@
+<div>
+  <h2 id="page-heading" data-cy="DatosHeading">
+    <span jhiTranslate="appylbApp.datos.home.title">Datos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="appylbApp.datos.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-datos"
+        [routerLink]="['/datos/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="appylbApp.datos.home.createLabel">Crear nuevo Datos</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (datos().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="appylbApp.datos.home.notFound">Ningún Datos encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="inversionTotal">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.inversionTotal">Inversion Total</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ingresosxVentas">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.ingresosxVentas">Ingresosx Ventas</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="gananciasYLB">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.gananciasYLB">Ganancias YLB</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="goubernamentTak">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.goubernamentTak">Goubernament Tak</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="regalias">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.regalias">Regalias</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="iue">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.iue">Iue</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="iva">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.iva">Iva</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="it">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.it">It</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1precioVentaprom">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1precioVentaprom">T 1 Precio Ventaprom</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1costoVariable">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1costoVariable">T 1 Costo Variable</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1costoVartarifa">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1costoVartarifa">T 1 Costo Vartarifa</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1margenUnitario">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1margenUnitario">T 1 Margen Unitario</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1costoFijo">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1costoFijo">T 1 Costo Fijo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1costoTotalunitprom">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1costoTotalunitprom">T 1 Costo Totalunitprom</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t1puntoEquilibrio">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t1puntoEquilibrio">T 1 Punto Equilibrio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2tasainteres">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2tasainteres">T 2 Tasainteres</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2tasadescuento">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2tasadescuento">T 2 Tasadescuento</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2vandelProyecto">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2vandelProyecto">T 2 Vandel Proyecto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2vanYlb">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2vanYlb">T 2 Van Ylb</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2vp">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2vp">T 2 Vp</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2tirProyecto">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2tirProyecto">T 2 Tir Proyecto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="t2tirYlb">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.t2tirYlb">T 2 Tir Ylb</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="versionDatos.nombreVersion">
+              <div class="d-flex">
+                <span jhiTranslate="appylbApp.datos.versionDatos">Version Datos</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (datos of datos(); track trackId(datos)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/datos', datos.id, 'view']">{{ datos.id }}</a>
+              </td>
+              <td>{{ datos.inversionTotal }}</td>
+              <td>{{ datos.ingresosxVentas }}</td>
+              <td>{{ datos.gananciasYLB }}</td>
+              <td>{{ datos.goubernamentTak }}</td>
+              <td>{{ datos.regalias }}</td>
+              <td>{{ datos.iue }}</td>
+              <td>{{ datos.iva }}</td>
+              <td>{{ datos.it }}</td>
+              <td>{{ datos.t1precioVentaprom }}</td>
+              <td>{{ datos.t1costoVariable }}</td>
+              <td>{{ datos.t1costoVartarifa }}</td>
+              <td>{{ datos.t1margenUnitario }}</td>
+              <td>{{ datos.t1costoFijo }}</td>
+              <td>{{ datos.t1costoTotalunitprom }}</td>
+              <td>{{ datos.t1puntoEquilibrio }}</td>
+              <td>{{ datos.t2tasainteres }}</td>
+              <td>{{ datos.t2tasadescuento }}</td>
+              <td>{{ datos.t2vandelProyecto }}</td>
+              <td>{{ datos.t2vanYlb }}</td>
+              <td>{{ datos.t2vp }}</td>
+              <td>{{ datos.t2tirProyecto }}</td>
+              <td>{{ datos.t2tirYlb }}</td>
+              <td>
+                @if (datos.versionDatos) {
+                  <div>
+                    <a [routerLink]="['/version-datos', datos.versionDatos.id, 'view']">{{ datos.versionDatos.nombreVersion }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/datos', datos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/datos', datos.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(datos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

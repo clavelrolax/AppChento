@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-operador-heading" data-cy="OperadorCreateUpdateHeading" jhiTranslate="appylbApp.operador.home.createOrEditLabel">
+        Crear o editar Operador
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="appylbApp.operador.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nombreRef = editForm.get('nombre')!;
+        <div class="mb-3">
+          <label
+            class="form-label"
+            for="field_nombre"
+            [ngbTooltip]="'appylbApp.operador.help.nombre' | translate"
+            jhiTranslate="appylbApp.operador.nombre"
+            >Nombre</label
+          >
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          @if (nombreRef.invalid && (nombreRef.dirty || nombreRef.touched)) {
+            <div>
+              @if (editForm.get('nombre')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let nacionalidadRef = editForm.get('nacionalidad')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nacionalidad" jhiTranslate="appylbApp.operador.nacionalidad">Nacionalidad</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nacionalidad"
+            id="field_nacionalidad"
+            data-cy="nacionalidad"
+            formControlName="nacionalidad"
+          />
+          @if (nacionalidadRef.invalid && (nacionalidadRef.dirty || nacionalidadRef.touched)) {
+            <div>
+              @if (editForm.get('nacionalidad')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fechaCreacionRef = editForm.get('fechaCreacion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaCreacion" jhiTranslate="appylbApp.operador.fechaCreacion">Fecha Creacion</label>
+          <div class="input-group">
+            <input
+              id="field_fechaCreacion"
+              data-cy="fechaCreacion"
+              type="text"
+              class="form-control"
+              name="fechaCreacion"
+              ngbDatepicker
+              #fechaCreacionDp="ngbDatepicker"
+              formControlName="fechaCreacion"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaCreacionDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (fechaCreacionRef.invalid && (fechaCreacionRef.dirty || fechaCreacionRef.touched)) {
+            <div>
+              @if (editForm.get('fechaCreacion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

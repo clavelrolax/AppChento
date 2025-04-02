@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20250329005629"
+  },
+  "applications": "*",
+  "documentation": "The Entity entity.\\n@author A true hipster",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "documentation": "fieldName",
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nacionalidad",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Operador",
+  "relationships": [
+    {
+      "otherEntityName": "proyecto",
+      "otherEntityRelationshipName": "operador",
+      "relationshipName": "proyecto",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

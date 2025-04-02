@@ -1,0 +1,39 @@
+{
+  "appylbApp": {
+    "datosImagen": {
+      "home": {
+        "title": "Datos Imagens",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Datos Imagen",
+        "createOrEditLabel": "Crear o editar Datos Imagen",
+        "notFound": "Ningún Datos Imagens encontrado"
+      },
+      "created": "Un nuevo Datos Imagen ha sido creado con el identificador {{ param }}",
+      "updated": "Un Datos Imagen ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Datos Imagen ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Datos Imagen {{ id }}?"
+      },
+      "detail": {
+        "title": "Datos Imagen"
+      },
+      "id": "ID",
+      "imagen1": "Imagen 1",
+      "imagen2": "Imagen 2",
+      "imagen3": "Imagen 3",
+      "imagen4": "Imagen 4",
+      "imagen5": "Imagen 5",
+      "imagen6": "Imagen 6",
+      "imagen7": "Imagen 7",
+      "imagen8": "Imagen 8",
+      "imagen9": "Imagen 9",
+      "imagen10": "Imagen 10",
+      "imagen11": "Imagen 11",
+      "imagen12": "Imagen 12",
+      "versionDatos": "Version Datos",
+      "help": {
+        "imagen1": "fieldName"
+      }
+    }
+  }
+}
