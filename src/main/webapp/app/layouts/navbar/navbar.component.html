@@ -112,6 +112,37 @@
             </ul>
           </li>
         }
+
+        <li
+          *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']"
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="report-menu" data-cy="report">
+            <span>
+              <fa-icon icon="th-list"></fa-icon>
+              <span>Reportes</span>
+            </span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="report-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/reportes"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span>Reporte 1</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
