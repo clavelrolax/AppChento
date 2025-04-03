@@ -84,7 +84,7 @@ export class VersionDatosComponent implements OnInit {
   loadProyectos(): void {
     this.queryBackendProyectos().subscribe({
       next: (res: EntityArrayResponseType) => {
-        this.onResponseSuccess(res);
+        this.onResponseSuccessProyect(res);
       },
     });
   }
@@ -111,21 +111,25 @@ export class VersionDatosComponent implements OnInit {
     return data ?? [];
   }
 
+  protected onResponseSuccessProyect(response: EntityArrayResponseType): void {
+    const dataFromBody = this.fillComponentAttributesFromResponseBodyProyect(response.body);
+    this.proyectos.set(this.refineDataProyect(dataFromBody));
+  }
+
+  protected refineDataProyect(data: IProyecto[]): IVersionDatos[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
+  }
+
+  protected fillComponentAttributesFromResponseBodyProyect(data: IProyecto[] | null): IProyecto[] {
+    return data ?? [];
+  }
+
   protected queryBackendProyectos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
-    // Si hay un operador seleccionado, actualiza la lista de proyectos según ese operador
-    if (this.selectedOperadorId != null) {
-      const todosLosProyectos = this.proyectos(); // Proyectos previamente cargados
-      const proyectosFiltrados = todosLosProyectos.filter(p => p.operador?.id === this.selectedOperadorId);
-      this.proyectos.set(proyectosFiltrados); // Actualiza el ComboBox de Proyecto
-    } else {
-      // Si no hay operador, carga todos los proyectos de nuevo
-      this.proyectoService.query().subscribe(res => this.proyectos.set(res.body ?? []));
-    }
-
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedProyectoId == null) {
+    if (this.selectedOperadorId == null) {
       this.versionDatos.set([]);
       this.isLoading = false;
       return new Observable<EntityArrayResponseType>(observer => {
@@ -135,12 +139,12 @@ export class VersionDatosComponent implements OnInit {
 
     // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
     const queryObject: any = {
-      'proyectoId.equals': this.selectedProyectoId,
+      'operadorId.equals': this.selectedOperadorId,
       eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
 
-    return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    return this.proyectoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
   protected queryBackend(): Observable<EntityArrayResponseType> {
