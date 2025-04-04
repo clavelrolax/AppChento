@@ -40,7 +40,7 @@ const routes: Routes = [
     },
     canActivate: [UserRouteAccessService],
     loadComponent: () => import('./reportes/reportes.component'),
-    title: 'Reportes',
+    title: 'reportes.title',
   },
   {
     path: '',

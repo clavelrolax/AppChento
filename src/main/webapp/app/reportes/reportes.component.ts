@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DEFAULT_SORT_DATA, SORT } from 'app/config/navigation.constants';
-import { EntityArrayResponseType } from 'app/entities/datos/service/datos.service';
+import { IDatosImagen } from 'app/entities/datos-imagen/datos-imagen.model';
+import { DatosImagenService } from 'app/entities/datos-imagen/service/datos-imagen.service';
+import { IDatos } from 'app/entities/datos/datos.model';
+import { DatosService, EntityArrayResponseType } from 'app/entities/datos/service/datos.service';
 import { IOperador } from 'app/entities/operador/operador.model';
 import { OperadorService } from 'app/entities/operador/service/operador.service';
 import { IProyecto } from 'app/entities/proyecto/proyecto.model';
@@ -37,7 +40,7 @@ export default class ReportesComponent implements OnInit {
   operadores = signal<IOperador[]>([]);
   versionDatos = signal<IVersionDatos[]>([]);
 
-  protected datos: WritableSignal<IVersionDatos | null> = signal(null);
+  //protected datos: WritableSignal<IVersionDatos | null> = signal(null);
 
   selectedProyectoId: number | undefined;
   selectedOperadorId: number | undefined;
@@ -46,6 +49,16 @@ export default class ReportesComponent implements OnInit {
   protected proyectoService = inject(ProyectoService);
   protected operadorService = inject(OperadorService);
   protected versionDatosService = inject(VersionDatosService);
+
+  protected datosService = inject(DatosService);
+  protected datosImagenService = inject(DatosImagenService);
+
+  protected datos: WritableSignal<IDatos | null> = signal(null);
+  protected datosImagen: WritableSignal<IDatosImagen | null> = signal(null);
+
+  protected operador: WritableSignal<IOperador | null> = signal(null);
+  protected proyecto: WritableSignal<IProyecto | null> = signal(null);
+  protected veersion: WritableSignal<IVersionDatos | null> = signal(null);
 
   ngOnInit(): void {
     // Initialization logic here
@@ -73,13 +86,31 @@ export default class ReportesComponent implements OnInit {
   }
 
   loadData(): void {
-    this.queryBackendLlenarDatos();
+    this.queryBackendLlenarDatos().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccessDatos(res);
+      },
+    });
+
+    this.queryBackendLlenarDatosImagen().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccessDatosImagen(res);
+      },
+    });
   }
 
   protected queryBackendProyectos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
     console.log('selectedOperadorId', this.selectedOperadorId);
+
+    if (this.selectedOperadorId != null) {
+      const todosLosOperadores = this.operadores(); // Proyectos previamente cargados
+      this.operador.set(todosLosOperadores.filter(p => p.id === this.selectedOperadorId)[0]);
+
+      console.log('operador', this.operador());
+    }
+
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
     if (this.selectedOperadorId == null) {
       this.proyectos.set([]);
@@ -106,6 +137,11 @@ export default class ReportesComponent implements OnInit {
 
     console.log('selectedProyectoId', this.selectedProyectoId);
 
+    if (this.selectedProyectoId != null) {
+      const todosLosProyectos = this.proyectos(); // Proyectos previamente cargados
+      this.proyecto.set(todosLosProyectos.filter(p => p.id === this.selectedProyectoId)[0]);
+      console.log('proyecto', this.proyecto());
+    }
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
     if (this.selectedProyectoId == null) {
       this.isLoading = false;
@@ -126,34 +162,88 @@ export default class ReportesComponent implements OnInit {
     return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
-  protected queryBackendLlenarDatos() {
+  protected queryBackendLlenarDatos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
     console.log('selectedVersionId', this.selectedVersionId);
 
-    // Si hay un operador seleccionado, actualiza la lista de proyectos según ese operador
     if (this.selectedVersionId != null) {
-      const todosLasVersiones = this.versionDatos(); // Proyectos previamente cargados
-      const versionesFiltrados = todosLasVersiones.filter(p => p.id === this.selectedVersionId);
-
-      console.log('versionesFiltrados', versionesFiltrados);
-
-      this.datos.set(versionesFiltrados[0]); // Actualiza el ComboBox de Proyecto
-    } else {
-      // Si no hay operador, carga todos los proyectos de nuevo
-      this.versionDatosService.query().subscribe(res => this.versionDatos.set(res.body ?? []));
+      const todosLosProyectos = this.versionDatos(); // Proyectos previamente cargados
+      this.veersion.set(todosLosProyectos.filter(p => p.id === this.selectedVersionId)[0]);
+      console.log('veersion', this.veersion());
     }
 
-    console.log('DATOS: ', this.datos.toString);
+    if (this.selectedVersionId == null) {
+      this.isLoading = false;
+      return new Observable<EntityArrayResponseType>(observer => {
+        observer.complete();
+      });
+    }
+
+    console.log('DATOS: ', this.datos());
 
     // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
-    //const queryObject: any = {
-    //  'proyectoId.equals': this.selectedVersionId,
-    //  eagerload: true,
-    //  sort: this.sortService.buildSortParam(this.sortState()),
-    //};
+    const queryObject: any = {
+      'versionId.equals': this.selectedVersionId,
+      eagerload: true,
+      sort: this.sortService.buildSortParam(this.sortState()),
+    };
 
-    //return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    return this.datosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected onResponseSuccessDatos(response: EntityArrayResponseType): void {
+    console.log('onResponseSuccessDatos***** ', response.body);
+    const dataFromBody = this.fillComponentAttributesFromResponseBodyDatos(response.body);
+    this.datos.set(this.refineDataDatos(dataFromBody)[0]);
+  }
+
+  protected refineDataDatos(data: IDatos[]): IDatos[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
+  }
+
+  protected fillComponentAttributesFromResponseBodyDatos(data: IDatos[] | null): IDatos[] {
+    return data ?? [];
+  }
+
+  protected queryBackendLlenarDatosImagen(): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+
+    console.log('selectedVersionId', this.selectedVersionId);
+
+    if (this.selectedVersionId == null) {
+      this.isLoading = false;
+      return new Observable<EntityArrayResponseType>(observer => {
+        observer.complete();
+      });
+    }
+
+    console.log('DATOS: ', this.datosImagen.toString);
+
+    // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
+    const queryObject: any = {
+      'versionId.equals': this.selectedVersionId,
+      eagerload: true,
+      sort: this.sortService.buildSortParam(this.sortState()),
+    };
+
+    return this.datosImagenService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected onResponseSuccessDatosImagen(response: EntityArrayResponseType): void {
+    console.log('onResponseSuccessDatosImage***** ', response.body);
+    const dataFromBody = this.fillComponentAttributesFromResponseBodyDatosImagen(response.body);
+    this.datosImagen.set(this.refineDataDatosImagen(dataFromBody)[0]);
+  }
+
+  protected refineDataDatosImagen(data: IDatosImagen[]): IDatosImagen[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
+  }
+
+  protected fillComponentAttributesFromResponseBodyDatosImagen(data: IDatosImagen[] | null): IDatosImagen[] {
+    return data ?? [];
   }
 
   protected onResponseSuccessVersionDatos(response: EntityArrayResponseType): void {

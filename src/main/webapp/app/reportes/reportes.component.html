@@ -80,7 +80,7 @@
     <table>
       <tr>
         <td>Operador</td>
-        <td>CBC</td>
+        <td>{{ operador()?.nombre }}</td>
         <td>Inversión total USD MM</td>
         <td>1,030</td>
       </tr>
@@ -92,7 +92,7 @@
       </tr>
       <tr>
         <td>Objeto</td>
-        <td>Planta de EDL y Salmuera</td>
+        <td>{{ proyecto()?.nombreProyecto }}</td>
         <td>Ganancias YIB USD MM</td>
         <td>8,359</td>
       </tr>
@@ -135,7 +135,9 @@
     <div class="section">
       <h2>Programa de Producción</h2>
       <div class="img-container">
-        <img src="../../content/images/img1.jpg" alt="Programa de Producción" />
+        @if (datosImagen()?.imagen1) {
+          <img [src]="'data:' + datosImagen()?.imagen1ContentType + ';base64,' + datosImagen()?.imagen1" alt="datosImagen" />
+        }
       </div>
     </div>
 
