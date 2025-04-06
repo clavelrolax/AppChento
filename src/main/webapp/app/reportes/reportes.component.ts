@@ -102,7 +102,7 @@ export default class ReportesComponent implements OnInit {
   protected queryBackendProyectos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
-    console.log('selectedOperadorId', this.selectedOperadorId);
+    // console.log('selectedOperadorId', this.selectedOperadorId);
 
     if (this.selectedOperadorId != null) {
       const todosLosOperadores = this.operadores(); // Proyectos previamente cargados
@@ -112,9 +112,16 @@ export default class ReportesComponent implements OnInit {
     }
 
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedOperadorId == null) {
+    if (this.selectedOperadorId == undefined || this.selectedOperadorId == null) {
       this.proyectos.set([]);
+      this.versionDatos.set([]);
       this.isLoading = false;
+      this.veersion.set(null);
+      this.datos.set(null);
+      this.datosImagen.set(null);
+      this.selectedProyectoId = undefined;
+      this.selectedVersionId = undefined;
+      this.proyecto.set(null);
       return new Observable<EntityArrayResponseType>(observer => {
         observer.complete();
       });
@@ -135,7 +142,7 @@ export default class ReportesComponent implements OnInit {
   protected queryBackendVersionDatos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
-    console.log('selectedProyectoId', this.selectedProyectoId);
+    //console.log('selectedProyectoId', this.selectedProyectoId);
 
     if (this.selectedProyectoId != null) {
       const todosLosProyectos = this.proyectos(); // Proyectos previamente cargados
@@ -143,8 +150,14 @@ export default class ReportesComponent implements OnInit {
       console.log('proyecto', this.proyecto());
     }
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedProyectoId == null) {
+    if (this.selectedProyectoId == undefined || this.selectedProyectoId == null) {
       this.isLoading = false;
+      this.datos.set(null);
+      this.datosImagen.set(null);
+      this.versionDatos.set([]);
+      this.veersion.set(null);
+      this.selectedVersionId = undefined;
+      this.proyecto.set(null);
       return new Observable<EntityArrayResponseType>(observer => {
         observer.complete();
       });
@@ -165,7 +178,8 @@ export default class ReportesComponent implements OnInit {
   protected queryBackendLlenarDatos(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
-    console.log('selectedVersionId', this.selectedVersionId);
+    //console.log('selectedVersionId', this.selectedVersionId);
+    console.log('AAAAA');
 
     if (this.selectedVersionId != null) {
       const todosLosProyectos = this.versionDatos(); // Proyectos previamente cargados
@@ -173,8 +187,13 @@ export default class ReportesComponent implements OnInit {
       console.log('veersion', this.veersion());
     }
 
-    if (this.selectedVersionId == null) {
+    console.log('BBBBBB');
+
+    if (this.selectedVersionId == undefined || this.selectedVersionId == null) {
       this.isLoading = false;
+      this.datos.set(null);
+      this.datosImagen.set(null);
+      this.veersion.set(null);
       return new Observable<EntityArrayResponseType>(observer => {
         observer.complete();
       });
@@ -184,7 +203,7 @@ export default class ReportesComponent implements OnInit {
 
     // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
     const queryObject: any = {
-      'versionId.equals': this.selectedVersionId,
+      'versionDatosId.equals': this.selectedVersionId,
       eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
@@ -210,20 +229,22 @@ export default class ReportesComponent implements OnInit {
   protected queryBackendLlenarDatosImagen(): Observable<EntityArrayResponseType> {
     this.isLoading = true;
 
-    console.log('selectedVersionId', this.selectedVersionId);
+    //console.log('selectedVersionId', this.selectedVersionId);
 
     if (this.selectedVersionId == null) {
       this.isLoading = false;
+      this.datos.set(null);
+      this.datosImagen.set(null);
       return new Observable<EntityArrayResponseType>(observer => {
         observer.complete();
       });
     }
 
-    console.log('DATOS: ', this.datosImagen.toString);
+    //console.log('DATOS: ', this.datosImagen.toString);
 
     // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
     const queryObject: any = {
-      'versionId.equals': this.selectedVersionId,
+      'versionDatosId.equals': this.selectedVersionId,
       eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
