@@ -13,6 +13,7 @@
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-datos-imagen"
         [routerLink]="['/datos-imagen/new']"
+        [queryParams]="selectedVersionId ? { versionId: selectedVersionId } : null"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="appylbApp.datosImagen.home.createLabel">Crear nuevo Datos Imagen</span>
@@ -23,6 +24,34 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
+
+  <h2>Buscar Version</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="operadorSelect">Filtrar por Operador:</label>
+      <select class="form-control" id="operadorSelect" [(ngModel)]="selectedOperadorId" (change)="loadProyectos()">
+        <option [ngValue]="undefined">Todos</option>
+        <option *ngFor="let o of operadores()" [ngValue]="o.id">{{ o.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="proyectoSelect">Filtrar por Proyecto:</label>
+      <select class="form-control" id="proyectoSelect" [(ngModel)]="selectedProyectoId" (change)="loadVersiones()">
+        <option [ngValue]="undefined">Todos</option>
+        <option *ngFor="let p of proyectos()" [ngValue]="p.id">{{ p.nombreProyecto }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="versionSelect">Filtrar por Version:</label>
+      <select class="form-control" id="versionSelect" [(ngModel)]="selectedVersionId" (change)="load()">
+        <option [ngValue]="undefined">Todos</option>
+        <option *ngFor="let p of versionDatos()" [ngValue]="p.id">{{ p.nombreVersion }}</option>
+      </select>
+    </div>
+  </div>
 
   @if (datosImagens().length === 0) {
     <div class="alert alert-warning" id="no-result">

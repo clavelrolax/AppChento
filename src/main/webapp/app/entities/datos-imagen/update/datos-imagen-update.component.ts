@@ -50,6 +50,29 @@ export class DatosImagenUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      const versionIdParam = params.get('versionId');
+      if (versionIdParam) {
+        const versionId = +versionIdParam;
+
+        this.versionDatosService.find(versionId).subscribe(response => {
+          const versionDatos = response.body;
+          if (versionDatos) {
+            this.editForm.patchValue({ versionDatos });
+
+            // Asegúrate de que esté en la lista del combo
+            this.versionDatosCollection = this.versionDatosService.addVersionDatosToCollectionIfMissing(
+              this.versionDatosCollection,
+              versionDatos,
+            );
+
+            // Desactivar el combo si quieres que no se pueda cambiar
+            this.editForm.get('versionDatos')?.disable();
+          }
+        });
+      }
+    });
   }
 
   byteSize(base64String: string): string {

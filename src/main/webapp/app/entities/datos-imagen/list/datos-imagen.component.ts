@@ -11,6 +11,12 @@ import { DataUtils } from 'app/core/util/data-util.service';
 import { IDatosImagen } from '../datos-imagen.model';
 import { DatosImagenService, EntityArrayResponseType } from '../service/datos-imagen.service';
 import { DatosImagenDeleteDialogComponent } from '../delete/datos-imagen-delete-dialog.component';
+import { IProyecto } from 'app/entities/proyecto/proyecto.model';
+import { IOperador } from 'app/entities/operador/operador.model';
+import { IVersionDatos } from 'app/entities/version-datos/version-datos.model';
+import { ProyectoService } from 'app/entities/proyecto/service/proyecto.service';
+import { OperadorService } from 'app/entities/operador/service/operador.service';
+import { VersionDatosService } from 'app/entities/version-datos/service/version-datos.service';
 
 @Component({
   selector: 'jhi-datos-imagen',
@@ -24,6 +30,20 @@ export class DatosImagenComponent implements OnInit {
 
   sortState = sortStateSignal({});
 
+  proyectos = signal<IProyecto[]>([]);
+  operadores = signal<IOperador[]>([]);
+  versionDatos = signal<IVersionDatos[]>([]);
+
+  //protected datos: WritableSignal<IVersionDatos | null> = signal(null);
+
+  selectedProyectoId: number | undefined;
+  selectedOperadorId: number | undefined;
+  selectedVersionId: number | undefined;
+
+  protected proyectoService = inject(ProyectoService);
+  protected operadorService = inject(OperadorService);
+  protected versionDatosService = inject(VersionDatosService);
+
   public readonly router = inject(Router);
   protected readonly datosImagenService = inject(DatosImagenService);
   protected readonly activatedRoute = inject(ActivatedRoute);
@@ -35,6 +55,8 @@ export class DatosImagenComponent implements OnInit {
   trackId = (item: IDatosImagen): number => this.datosImagenService.getDatosImagenIdentifier(item);
 
   ngOnInit(): void {
+    this.operadorService.query().subscribe(res => this.operadores.set(res.body ?? []));
+
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
         tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
@@ -63,12 +85,135 @@ export class DatosImagenComponent implements OnInit {
       .subscribe();
   }
 
+  loadProyectos(): void {
+    this.queryBackendProyectos().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccessProyect(res);
+      },
+    });
+  }
+
+  loadVersiones(): void {
+    this.queryBackendVersionDatos().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccessVersionDatos(res);
+      },
+      error(err) {
+        console.error('Error loading version data:', err);
+      },
+    });
+  }
+
   load(): void {
     this.queryBackend().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
       },
     });
+  }
+
+  protected queryBackendProyectos(): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+
+    // console.log('selectedOperadorId', this.selectedOperadorId);
+
+    if (this.selectedOperadorId != null) {
+      const todosLosOperadores = this.operadores(); // Proyectos previamente cargados
+      //this.operador.set(todosLosOperadores.filter(p => p.id === this.selectedOperadorId)[0]);
+
+      //console.log('operador', this.operador());
+    }
+
+    // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
+    if (this.selectedOperadorId == undefined || this.selectedOperadorId == null) {
+      this.proyectos.set([]);
+      this.versionDatos.set([]);
+      this.isLoading = false;
+
+      this.selectedProyectoId = undefined;
+      this.selectedVersionId = undefined;
+
+      return new Observable<EntityArrayResponseType>(observer => {
+        observer.complete();
+      });
+    }
+
+    // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
+    const queryObject: any = {
+      'operadorId.equals': this.selectedOperadorId,
+      eagerload: true,
+      sort: this.sortService.buildSortParam(this.sortState()),
+    };
+
+    console.log('queryObject', queryObject);
+
+    return this.proyectoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected queryBackendVersionDatos(): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+
+    //console.log('selectedProyectoId', this.selectedProyectoId);
+
+    if (this.selectedProyectoId != null) {
+      const todosLosProyectos = this.proyectos(); // Proyectos previamente cargados
+      //this.proyecto.set(todosLosProyectos.filter(p => p.id === this.selectedProyectoId)[0]);
+      //console.log('proyecto', this.proyecto());
+    }
+    // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
+    if (this.selectedProyectoId == undefined || this.selectedProyectoId == null) {
+      this.isLoading = false;
+
+      this.versionDatos.set([]);
+
+      this.selectedVersionId = undefined;
+
+      return new Observable<EntityArrayResponseType>(observer => {
+        observer.complete();
+      });
+    }
+
+    // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
+    const queryObject: any = {
+      'proyectoId.equals': this.selectedProyectoId,
+      eagerload: true,
+      sort: this.sortService.buildSortParam(this.sortState()),
+    };
+
+    console.log('queryObject', queryObject);
+
+    return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected onResponseSuccessProyect(response: EntityArrayResponseType): void {
+    console.log('onResponseSuccessProyect', response.body);
+    const dataFromBody = this.ProyectDatos(response.body);
+    this.proyectos.set(this.refineDataProyect(dataFromBody));
+    this.versionDatos.set([]);
+  }
+
+  protected refineDataProyect(data: IProyecto[]): IProyecto[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
+  }
+
+  protected ProyectDatos(data: IProyecto[] | null): IProyecto[] {
+    return data ?? [];
+  }
+
+  protected onResponseSuccessVersionDatos(response: EntityArrayResponseType): void {
+    console.log('onResponseSuccessVersionDatos***** ');
+    const dataFromBody = this.fillComponentAttributesFromResponseBodyVersionDatos(response.body);
+    this.versionDatos.set(this.refineDataVersionDatos(dataFromBody));
+  }
+
+  protected fillComponentAttributesFromResponseBodyVersionDatos(data: IVersionDatos[] | null): IVersionDatos[] {
+    return data ?? [];
+  }
+
+  protected refineDataVersionDatos(data: IVersionDatos[]): IVersionDatos[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
   }
 
   navigateToWithComponentValues(event: SortState): void {
@@ -99,6 +244,16 @@ export class DatosImagenComponent implements OnInit {
       eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
+
+    if (this.selectedVersionId != null) {
+      const queryObject: any = {
+        'versionDatosId.equals': this.selectedVersionId,
+        eagerload: true,
+        sort: this.sortService.buildSortParam(this.sortState()),
+      };
+      return this.datosImagenService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    }
+
     return this.datosImagenService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 

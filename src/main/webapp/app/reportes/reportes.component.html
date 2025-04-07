@@ -98,7 +98,7 @@
       </tr>
       <tr>
         <td>Última documentación recibida</td>
-        <td>{{ veersion()?.fechaVersion }}</td>
+        <td>{{ veersion()?.fechaVersion?.toDate() | date: 'yyyy-MM-dd' }}</td>
         <td>Government TAK USD MM</td>
         <td>{{ datos()?.goubernamentTak }}</td>
       </tr>
@@ -128,7 +128,7 @@
       </tr>
       <tr>
         <td>Fecha de Elaboración</td>
-        <td colspan="3">{{ veersion()?.fechaVersion }}</td>
+        <td colspan="3">{{ veersion()?.fechaVersion?.toDate() | date: 'yyyy-MM-dd' }}</td>
       </tr>
     </table>
 
