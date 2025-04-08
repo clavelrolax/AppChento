@@ -147,5 +147,5 @@
       "not.image": "Se esperaba que el fichero fuera una imagen pero se encontro \"{{ fileType }}\""
     }
   },
-  "footer": "YLB @2025"
+  "footer": "YLB @2025 V1.0.0"
 }

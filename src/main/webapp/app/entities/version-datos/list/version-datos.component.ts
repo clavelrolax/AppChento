@@ -164,11 +164,11 @@ export class VersionDatosComponent implements OnInit {
       queryObject['proyectoId.in'] = ids || '0';
     }
 
-    console.log(this.selectedProyectoId);
+    //console.log(this.selectedProyectoId);
 
-    console.log(this.selectedOperadorId);
+    //console.log(this.selectedOperadorId);
 
-    console.log('queryObject', queryObject);
+    //console.log('queryObject', queryObject);
 
     return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }

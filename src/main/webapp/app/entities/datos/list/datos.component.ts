@@ -41,9 +41,9 @@ export class DatosComponent implements OnInit {
   protected operadorService = inject(OperadorService);
   protected versionDatosService = inject(VersionDatosService);
 
-  sortState = sortStateSignal({});
+  protected sortState = sortStateSignal({});
 
-  public readonly router = inject(Router);
+  protected readonly router = inject(Router);
   protected readonly datosService = inject(DatosService);
   protected readonly activatedRoute = inject(ActivatedRoute);
   protected readonly sortService = inject(SortService);
@@ -115,7 +115,7 @@ export class DatosComponent implements OnInit {
     }
 
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedOperadorId == undefined || this.selectedOperadorId == null) {
+    if (this.selectedOperadorId == null) {
       this.proyectos.set([]);
       this.versionDatos.set([]);
       this.isLoading = false;
@@ -135,7 +135,7 @@ export class DatosComponent implements OnInit {
       sort: this.sortService.buildSortParam(this.sortState()),
     };
 
-    console.log('queryObject', queryObject);
+    //console.log('queryObject', queryObject);
 
     return this.proyectoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
@@ -151,7 +151,7 @@ export class DatosComponent implements OnInit {
       //console.log('proyecto', this.proyecto());
     }
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedProyectoId == undefined || this.selectedProyectoId == null) {
+    if (this.selectedProyectoId == null) {
       this.isLoading = false;
 
       this.versionDatos.set([]);
@@ -170,13 +170,13 @@ export class DatosComponent implements OnInit {
       sort: this.sortService.buildSortParam(this.sortState()),
     };
 
-    console.log('queryObject', queryObject);
+    //console.log('queryObject', queryObject);
 
     return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
   protected onResponseSuccessProyect(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessProyect', response.body);
+    //console.log('onResponseSuccessProyect', response.body);
     const dataFromBody = this.ProyectDatos(response.body);
     this.proyectos.set(this.refineDataProyect(dataFromBody));
     this.versionDatos.set([]);
@@ -192,7 +192,7 @@ export class DatosComponent implements OnInit {
   }
 
   protected onResponseSuccessVersionDatos(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessVersionDatos***** ');
+    //console.log('onResponseSuccessVersionDatos***** ');
     const dataFromBody = this.fillComponentAttributesFromResponseBodyVersionDatos(response.body);
     this.versionDatos.set(this.refineDataVersionDatos(dataFromBody));
   }
@@ -206,7 +206,7 @@ export class DatosComponent implements OnInit {
     return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
   }
 
-  navigateToWithComponentValues(event: SortState): void {
+  protected navigateToWithComponentValues(event: SortState): void {
     this.handleNavigation(event);
   }
 
@@ -236,12 +236,12 @@ export class DatosComponent implements OnInit {
     };
 
     if (this.selectedVersionId != null) {
-      const queryObject: any = {
+      const queryObject1: any = {
         'versionDatosId.equals': this.selectedVersionId,
         eagerload: true,
         sort: this.sortService.buildSortParam(this.sortState()),
       };
-      return this.datosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+      return this.datosService.query(queryObject1).pipe(tap(() => (this.isLoading = false)));
     }
 
     return this.datosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));

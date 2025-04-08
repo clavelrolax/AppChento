@@ -34,17 +34,17 @@ export default class ReportesComponent implements OnInit {
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
 
-  sortState = sortStateSignal({});
+  protected sortState = sortStateSignal({});
 
-  proyectos = signal<IProyecto[]>([]);
-  operadores = signal<IOperador[]>([]);
-  versionDatos = signal<IVersionDatos[]>([]);
+  protected proyectos = signal<IProyecto[]>([]);
+  protected operadores = signal<IOperador[]>([]);
+  protected versionDatos = signal<IVersionDatos[]>([]);
 
   //protected datos: WritableSignal<IVersionDatos | null> = signal(null);
 
-  selectedProyectoId: number | undefined;
-  selectedOperadorId: number | undefined;
-  selectedVersionId: number | undefined;
+  protected selectedProyectoId: number | undefined;
+  protected selectedOperadorId: number | undefined;
+  protected selectedVersionId: number | undefined;
 
   protected proyectoService = inject(ProyectoService);
   protected operadorService = inject(OperadorService);
@@ -108,11 +108,11 @@ export default class ReportesComponent implements OnInit {
       const todosLosOperadores = this.operadores(); // Proyectos previamente cargados
       this.operador.set(todosLosOperadores.filter(p => p.id === this.selectedOperadorId)[0]);
 
-      console.log('operador', this.operador());
+      //console.log('operador', this.operador());
     }
 
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedOperadorId == undefined || this.selectedOperadorId == null) {
+    if (this.selectedOperadorId == null) {
       this.proyectos.set([]);
       this.versionDatos.set([]);
       this.isLoading = false;
@@ -134,7 +134,7 @@ export default class ReportesComponent implements OnInit {
       sort: this.sortService.buildSortParam(this.sortState()),
     };
 
-    console.log('queryObject', queryObject);
+    //console.log('queryObject', queryObject);
 
     return this.proyectoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
@@ -147,10 +147,10 @@ export default class ReportesComponent implements OnInit {
     if (this.selectedProyectoId != null) {
       const todosLosProyectos = this.proyectos(); // Proyectos previamente cargados
       this.proyecto.set(todosLosProyectos.filter(p => p.id === this.selectedProyectoId)[0]);
-      console.log('proyecto', this.proyecto());
+      //console.log('proyecto', this.proyecto());
     }
     // Si todavía no se ha seleccionado un proyecto, no cargamos VersionDatos aún
-    if (this.selectedProyectoId == undefined || this.selectedProyectoId == null) {
+    if (this.selectedProyectoId == null) {
       this.isLoading = false;
       this.datos.set(null);
       this.datosImagen.set(null);
@@ -170,7 +170,7 @@ export default class ReportesComponent implements OnInit {
       sort: this.sortService.buildSortParam(this.sortState()),
     };
 
-    console.log('queryObject', queryObject);
+    //console.log('queryObject', queryObject);
 
     return this.versionDatosService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
@@ -179,17 +179,17 @@ export default class ReportesComponent implements OnInit {
     this.isLoading = true;
 
     //console.log('selectedVersionId', this.selectedVersionId);
-    console.log('AAAAA');
+    //console.log('AAAAA');
 
     if (this.selectedVersionId != null) {
       const todosLosProyectos = this.versionDatos(); // Proyectos previamente cargados
       this.veersion.set(todosLosProyectos.filter(p => p.id === this.selectedVersionId)[0]);
-      console.log('veersion', this.veersion());
+      //console.log('veersion', this.veersion());
     }
 
-    console.log('BBBBBB');
+    //console.log('BBBBBB');
 
-    if (this.selectedVersionId == undefined || this.selectedVersionId == null) {
+    if (this.selectedVersionId == null) {
       this.isLoading = false;
       this.datos.set(null);
       this.datosImagen.set(null);
@@ -199,7 +199,7 @@ export default class ReportesComponent implements OnInit {
       });
     }
 
-    console.log('DATOS: ', this.datos());
+    //console.log('DATOS: ', this.datos());
 
     // Si hay un proyecto seleccionado, sí hacemos la búsqueda de VersionDatos
     const queryObject: any = {
@@ -212,7 +212,7 @@ export default class ReportesComponent implements OnInit {
   }
 
   protected onResponseSuccessDatos(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessDatos***** ', response.body);
+    //console.log('onResponseSuccessDatos***** ', response.body);
     const dataFromBody = this.fillComponentAttributesFromResponseBodyDatos(response.body);
     this.datos.set(this.refineDataDatos(dataFromBody)[0]);
   }
@@ -253,7 +253,7 @@ export default class ReportesComponent implements OnInit {
   }
 
   protected onResponseSuccessDatosImagen(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessDatosImage***** ', response.body);
+    //console.log('onResponseSuccessDatosImage***** ', response.body);
     const dataFromBody = this.fillComponentAttributesFromResponseBodyDatosImagen(response.body);
     this.datosImagen.set(this.refineDataDatosImagen(dataFromBody)[0]);
   }
@@ -268,7 +268,7 @@ export default class ReportesComponent implements OnInit {
   }
 
   protected onResponseSuccessVersionDatos(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessVersionDatos***** ');
+    //console.log('onResponseSuccessVersionDatos***** ');
     const dataFromBody = this.fillComponentAttributesFromResponseBodyVersionDatos(response.body);
     this.versionDatos.set(this.refineDataVersionDatos(dataFromBody));
   }
@@ -283,7 +283,7 @@ export default class ReportesComponent implements OnInit {
   }
 
   protected onResponseSuccessProyect(response: EntityArrayResponseType): void {
-    console.log('onResponseSuccessProyect', response.body);
+    //console.log('onResponseSuccessProyect', response.body);
     const dataFromBody = this.VersionDatos(response.body);
     this.proyectos.set(this.refineDataProyect(dataFromBody));
     this.versionDatos.set([]);
