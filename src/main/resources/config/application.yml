@@ -198,7 +198,7 @@ jhipster:
   #   allow-credentials: true
   #   max-age: 1800
   mail:
-    from: appylb@localhost
+    from: app_tecnologia@zohomail.com
   api-docs:
     default-include-pattern: /api/**
     management-include-pattern: /management/**

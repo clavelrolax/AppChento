@@ -47,10 +47,10 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: smtp.office365.com
+    host: smtp.zoho.com
     port: 587
-    username: prueba_servicios_nube@outlook.com
-    password: 9Z4Nm6eTpLGnhK
+    username: app_tecnologia@zohomail.com
+    password: Septiembre#2025
     protocol: smtp
     properties:
       mail:
@@ -59,6 +59,9 @@ spring:
           starttls:
             enable: true
             required: true
+          ssl:
+            enable: false
+            trust: smtp.zoho.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:

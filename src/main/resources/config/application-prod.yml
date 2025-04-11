@@ -48,10 +48,21 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: smtp.zoho.com
+    port: 587
+    username: app_tecnologia@zohomail.com
+    password: Septiembre#2025
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: false
+            trust: smtp.zoho.com
   thymeleaf:
     cache: true
 

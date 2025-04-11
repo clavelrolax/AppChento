@@ -61,7 +61,7 @@ jhipster:
   clientApp:
     name: 'appylbApp'
   mail:
-    from: appylb@localhost.com
+    from: app_tecnologia@zohomail.com
     base-url: http://127.0.0.1:8080
   logging:
     # To test json console appender
